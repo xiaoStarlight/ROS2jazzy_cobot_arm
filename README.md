@@ -1,5 +1,3 @@
-# myCobot MTC Pick and Place Demo
-
 # 🤖 myCobot MTC Pick and Place Demo
 
 **基于 ROS2 Jazzy \+ MoveIt Task Constructor 的 myCobot 机械臂视觉引导拾放演示系统**，在 Gazebo 仿真环境中实现环境感知、3D点云处理、物体识别、智能运动规划、全自动拾放任务执行的完整机器人作业闭环。
