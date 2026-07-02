@@ -20,7 +20,7 @@ ros2 launch mycobot_gazebo mycobot.gazebo.launch.py \
     use_sim_time:=true \
     x:=0.0 \
     y:=0.0 \
-    z:=0.0 \
+    z:=0.8 \
     roll:=0.0 \
     pitch:=0.0 \
     yaw:=0.0 &
@@ -36,7 +36,7 @@ gz service -s /gui/move_to/pose \
     --reqtype gz.msgs.GUICamera \
     --reptype gz.msgs.Boolean \
     --timeout 2000 \
-    --req "pose: {position: {x: 1.36, y: -0.58, z: 0.95} orientation: {x: -0.26, y: 0.1, z: 0.89, w: 0.35}}" &
+    --req "pose: {position: {x: 1.36, y: -0.58, z: 1.6} orientation: {x: -0.26, y: 0.1, z: 0.89, w: 0.35}}" &
 
 sleep 10
 echo "Launching the Pick and Place demo..."

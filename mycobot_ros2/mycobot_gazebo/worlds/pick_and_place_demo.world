@@ -28,53 +28,218 @@
       <render_engine>ogre2</render_engine>
     </plugin>
 
-    <!-- To add realistic gravity, do: 0.0 0.0 -9.8, otherwise do 0.0 0.0 0.0 -->
+    <!-- Gravity -->
     <gravity>0.0 0.0 -9.8</gravity>
 
-    <!-- Include a model of the Sun from an external URI -->
+    <!-- Sun -->
     <include>
-      <uri>
-        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Sun
-      </uri>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Sun</uri>
     </include>
 
-    <!-- Include a model of the Ground Plane from an external URI -->
+    <!-- Ground Plane -->
     <include>
-      <uri>
-        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Ground Plane
-      </uri>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Ground Plane</uri>
     </include>
 
-    <!-- Include the cylinder model -->
+    <!-- ============================================================ -->
+    <!--                   大桌子 (扩大2倍)                            -->
+    <!--           原尺寸: 1.6m x 1.0m                                -->
+    <!--           新尺寸: 3.2m x 2.0m                                -->
+    <!-- ============================================================ -->
+    
+    <model name="big_table">
+      <static>true</static>
+      
+      <!-- 桌面：3.2m x 2.0m x 0.05m (长宽各扩大2倍) -->
+      <link name="table_top">
+        <pose>0.0 0.0 0.8 0 0 0</pose>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>3.2 2.0 0.05</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.8 0.7 0.6 1</ambient>
+            <diffuse>0.8 0.7 0.6 1</diffuse>
+            <specular>0.0 0.0 0.0 1</specular>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>3.2 2.0 0.05</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+
+      <!-- ========================================================== -->
+      <!-- 桌腿 1: 左前 (x负, y正)                                    -->
+      <!-- ========================================================== -->
+      <link name="leg_front_left">
+        <pose>-1.4 0.8 0.4 0 0 0</pose>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.025</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.4 0.4 0.4 1</ambient>
+            <diffuse>0.4 0.4 0.4 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.025</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+        </collision>
+      </link>
+
+      <!-- ========================================================== -->
+      <!-- 桌腿 2: 右前 (x正, y正)                                    -->
+      <!-- ========================================================== -->
+      <link name="leg_front_right">
+        <pose>1.4 0.8 0.4 0 0 0</pose>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.025</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.4 0.4 0.4 1</ambient>
+            <diffuse>0.4 0.4 0.4 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.025</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+        </collision>
+      </link>
+
+      <!-- ========================================================== -->
+      <!-- 桌腿 3: 左后 (x负, y负)                                    -->
+      <!-- ========================================================== -->
+      <link name="leg_back_left">
+        <pose>-1.4 -0.8 0.4 0 0 0</pose>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.025</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.4 0.4 0.4 1</ambient>
+            <diffuse>0.4 0.4 0.4 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.025</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+        </collision>
+      </link>
+
+      <!-- ========================================================== -->
+      <!-- 桌腿 4: 右后 (x正, y负)                                    -->
+      <!-- ========================================================== -->
+      <link name="leg_back_right">
+        <pose>1.4 -0.8 0.4 0 0 0</pose>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.025</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <ambient>0.4 0.4 0.4 1</ambient>
+            <diffuse>0.4 0.4 0.4 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.025</radius>
+              <length>0.8</length>
+            </cylinder>
+          </geometry>
+        </collision>
+      </link>
+
+      <!-- ========================================================== -->
+      <!-- 固定关节：桌腿连接到桌面                                    -->
+      <!-- ========================================================== -->
+      <joint name="joint_leg_front_left" type="fixed">
+        <parent>table_top</parent>
+        <child>leg_front_left</child>
+        <pose>-1.4 0.8 -0.4 0 0 0</pose>
+      </joint>
+      <joint name="joint_leg_front_right" type="fixed">
+        <parent>table_top</parent>
+        <child>leg_front_right</child>
+        <pose>1.4 0.8 -0.4 0 0 0</pose>
+      </joint>
+      <joint name="joint_leg_back_left" type="fixed">
+        <parent>table_top</parent>
+        <child>leg_back_left</child>
+        <pose>-1.4 -0.8 -0.4 0 0 0</pose>
+      </joint>
+      <joint name="joint_leg_back_right" type="fixed">
+        <parent>table_top</parent>
+        <child>leg_back_right</child>
+        <pose>1.4 -0.8 -0.4 0 0 0</pose>
+      </joint>
+    </model>
+
+    <!-- ============================================================ -->
+    <!--                   桌面上的物体                                 -->
+    <!-- ============================================================ -->
+
+    <!-- 目标物体：红色圆柱体 -->
     <include>
       <uri>model://red_cylinder</uri>
       <name>red_cylinder</name>
-      <pose>0.22 0.12 0.175 0 0 0</pose>
+      <pose>0.22 0.12 0.975 0 0 0</pose>
     </include>
 
-    <!-- Include the other objects -->
-
+    <!-- 其他物体（干扰物） -->
     <include>
       <uri>model://mustard</uri>
-      <pose>0.7 0.15 0.08 0 0 0</pose>
+      <pose>0.7 0.15 0.88 0 0 0</pose>
     </include>
 
     <include>
       <uri>model://cheezit_big_original</uri>
-      <pose>0.64 0.23 0.17 1.571 0 0</pose>
+      <pose>0.64 0.23 0.97 1.571 0 0</pose>
     </include>
 
     <include>
       <uri>model://cardboard_box</uri>
-      <pose>0.65 0.60 0.3 0 0 0.5</pose>
+      <pose>0.65 0.60 1.1 0 0 0.5</pose>
     </include>
 
     <include>
       <uri>model://coke_can</uri>
-      <pose>0.5 0.15 0.15 0 0 2.3</pose>
+      <pose>0.5 0.15 0.95 0 0 2.3</pose>
     </include>
 
-    <!-- Define scene properties -->
+    <!-- Scene properties -->
     <scene>
       <shadows>false</shadows>
     </scene>
